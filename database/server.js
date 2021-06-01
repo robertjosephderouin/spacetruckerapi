@@ -7,10 +7,6 @@ const database = require('knex')(configuration);
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Space Truckers API';
 
-// app.get('/', (request, response) => {
-//   response.send('Oh hey Pet Box');
-// });
-
 app.get('/api/v1/jobs', async (request, response) => {
   try {
     const jobs = await database('jobs').select();
@@ -19,6 +15,11 @@ app.get('/api/v1/jobs', async (request, response) => {
     response.status(500).json({ error });
   }
 });
+
+// app.delete('/api/v1/jobs', async (request, response) => {
+//
+//
+// })
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on http://localhost:${app.get('port')}.`);
