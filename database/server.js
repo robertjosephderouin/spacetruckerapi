@@ -3,9 +3,13 @@ const app = express();
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
+const bodyParser = require('body-parser');
+
 
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Space Truckers API';
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded( {extended : true }));
 
 app.get('/api/v1/jobs', async (request, response) => {
   try {
