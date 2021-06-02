@@ -16,10 +16,14 @@ app.get('/api/v1/jobs', async (request, response) => {
   }
 });
 
-// app.delete('/api/v1/jobs', async (request, response) => {
-//
-//
-// })
+app.delete('/api/v1/jobs/:id', async (request, response) => {
+ try {
+  const selectedJob = await database('jobs').where( {id: request.params.id }).del();
+  response.status(200).json({ success: true})
+  } catch(error) {
+  response.status(500).json({ error });
+  }
+});
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on http://localhost:${app.get('port')}.`);
